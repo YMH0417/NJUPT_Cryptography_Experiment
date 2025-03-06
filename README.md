@@ -1,2 +1,2 @@
 # NJUPT_Cryptography_Experiment
-Help NJUPT students to solve their problems in Cryptography.
+Help NJUPT students to solve their problems in Cryptography lessons.
