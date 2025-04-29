@@ -1,4 +1,4 @@
-import hashlib
+from gmssl import sm3, func
 
 MAX_32 = 0xffffffff
 
@@ -29,7 +29,7 @@ def fill(s):
     m += bin(l)[2:].zfill(64)
     return hex(int(m, 2))[2:].zfill(len(m) // 4)
 
-def sm3(s):
+def sm3_custom(s):
     V = 0x7380166f4914b2b9172442d7da8a0600a96f30bc163138aae38dee4db0fb0e4e
     m = fill(s)
 
@@ -59,13 +59,11 @@ def sm3(s):
 
 data = input("Please input your string: ")
 
-my_hash = sm3(data)
+my_hash = sm3_custom(data)
 print("SM3 hash 1 by B23041011: ", my_hash)
 
-sm3_obj = hashlib.new('sm3')
-sm3_obj.update(data.encode('utf-8'))
-lib_hash = sm3_obj.hexdigest()
-print("SM3 hash 2 by Hashlib:   ", lib_hash)
+lib_hash = sm3.sm3_hash(func.bytes_to_list(data.encode('utf-8')))
+print("SM3 hash 2 by GmSSL:     ", lib_hash)
 
 if my_hash == lib_hash:
     print("Correct!")
